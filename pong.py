@@ -42,6 +42,9 @@ ball.shape('square')
 ball.color("white")
 ball.penup()
 ball.goto(0,0)
+#  movement speed 
+ball.dx = 0.27
+ball.dy = 0.27
 
 
 # Functions
@@ -87,5 +90,28 @@ wn.onkeypress(paddle_b_down, "Down")
 while True:
     wn.update()
 
+    # move the ball
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
 
+    # border checking, we want the ball to bounce on borders top/bottom
 
+    if ball.ycor() >290:
+        # stops ball at border
+        ball.sety(290)
+        # reverses the direction
+        ball.dy *= -1
+
+    if ball.ycor() < -290:
+        # stops ball at border
+        ball.sety(-290)
+        # reverses the direction
+        ball.dy *= -1
+
+    if ball.xcor() > 390:
+        ball.goto(0,0)
+        ball.dx *= -1
+
+    if ball.xcor() < -390:
+        ball.goto(0,0)
+        ball.dx *= -1
