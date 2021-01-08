@@ -9,6 +9,23 @@ wn.setup(width=800, height=600)
 # stops window from updating, speeds up game quite a bit
 wn.tracer(0)
 
+# Paddle A
+# turle object small t for object name big T for class name
+paddle_a = turtle.Turtle()
+# sets animation speed not speed of paddle on screen, 0 sets to maximum
+paddle_a.speed(0)
+paddle_a.shape('square')
+paddle_a.color("white")
+# by default Turtle is 20px X 20px multiples by what you stretch by 20x5=100 20x1=20
+paddle_a.shapesize(stretch_wid=5, stretch_len=1)
+# turtles by default draw a line as theyre moving penup prevents that
+paddle_a.penup()
+# where paddle starts at on screen
+paddle_a.goto(-350,0)
+
+# Paddle B
+
+# Ball
 
 
 
