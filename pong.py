@@ -1,4 +1,5 @@
 import turtle
+import os 
 
 # turtle is great for beginners
 wn=turtle.Screen()
@@ -114,19 +115,24 @@ while True:
         ball.sety(290)
         # reverses the direction
         ball.dy *= -1
+        # sounds file have to be in same folder for this setup  adding & at the end prevents game from freezing while sound plays
+        os.system("afplay boing.wav&")
 
     if ball.ycor() < -290:
         # stops ball at border
         ball.sety(-290)
         # reverses the direction
         ball.dy *= -1
+        os.system("afplay boing.wav&")
 
     if ball.xcor() > 390:
         ball.goto(0,0)
         ball.dx *= -1
         score_a += 1
+        # pen.clear erases whats written on screen
         pen.clear()
         pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+        os.system("afplay game-over.wav&")
 
     if ball.xcor() < -390:
         ball.goto(0,0)
@@ -134,14 +140,17 @@ while True:
         score_b += 1
         pen.clear()
         pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+        os.system("afplay game-over.wav&")
 
 
     # paddle and ball collision
     # if ball is 
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() -40):
         ball.setx(340)
+        os.system("afplay boing.wav&")
         ball.dx *= -1
     
     if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() -40):
         ball.setx(-340)
+        os.system("afplay boing.wav&")
         ball.dx *= -1
