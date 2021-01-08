@@ -44,9 +44,25 @@ ball.penup()
 ball.goto(0,0)
 
 
+# Functions
+
+# ycor is built into turtle module returns y cord and sets into var named y
+
+def paddle_a_up():
+    y = paddle_a.ycor()
+    y += 20
+    paddle_a.sety(y)
+
+#Keyboard binding
+# tells window to listen for keyboard input
+wn.listen()
+# when user presses w, call on function
+wn.onkeypress(paddle_a_up, "w")
+
+
+
 # Every game needs a main game loop
 # can not mix spaces and tabs stay consistant!!
-
 
 # Main game loop
 while True:
