@@ -9,6 +9,10 @@ wn.setup(width=800, height=600)
 # stops window from updating, speeds up game quite a bit
 wn.tracer(0)
 
+# Scores
+score_a = 0
+score_b = 0
+
 # Paddle A
 # turle object small t for object name big T for class name
 paddle_a = turtle.Turtle()
@@ -46,6 +50,15 @@ ball.goto(0,0)
 ball.dx = 0.27
 ball.dy = 0.27
 
+
+# Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0,260)
+pen.write("Player A: 0  Player B: 0", align="center",font=("Courier", 24, "normal"))
 
 # Functions
 
