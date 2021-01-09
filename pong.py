@@ -91,9 +91,13 @@ wn.listen()
 # when user presses w, call on function
 wn.onkeypress(paddle_a_up, "w")
 wn.onkeypress(paddle_a_down, "s")
+# gives two options to play
+wn.onkeypress(paddle_a_up, "Up")
+wn.onkeypress(paddle_a_down, "Down")
 # for arrow keys use capital Up Down keywords
-wn.onkeypress(paddle_b_up, "Up")
-wn.onkeypress(paddle_b_down, "Down")
+# commented out for AI 
+# wn.onkeypress(paddle_b_up, "Up")
+# wn.onkeypress(paddle_b_down, "Down")
 
 
 
@@ -154,3 +158,10 @@ while True:
         ball.setx(-340)
         os.system("afplay boing.wav&")
         ball.dx *= -1
+
+#  AI player
+    if ball.xcor() > 100 and paddle_b.ycor() < ball.ycor() and abs(paddle_b.ycor() - ball.ycor()) > 17:
+        paddle_b_up()
+
+    elif ball.xcor() > 100 and paddle_b.ycor() > ball.ycor() and abs(paddle_b.ycor() - ball.ycor()) > 17:
+        paddle_b_down()
