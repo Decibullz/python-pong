@@ -47,10 +47,19 @@ ball.shape('square')
 ball.color("white")
 ball.penup()
 ball.goto(0,0)
-#  movement speed 
+#  movement speed
 ball.dx = 0.27
 ball.dy = 0.27
 
+ball_2 = turtle.Turtle()
+ball_2.speed(0)
+ball_2.shape('square')
+ball_2.color("blue")
+ball_2.penup()
+ball_2.goto(0,0)
+#  movement speed
+ball_2.dx = -0.27
+ball_2.dy = -0.27
 
 # Pen
 pen = turtle.Turtle()
@@ -112,6 +121,10 @@ while True:
     ball.setx(ball.xcor() + ball.dx)
     ball.sety(ball.ycor() + ball.dy)
 
+    # ball 2
+    ball_2.setx(ball_2.xcor() + ball_2.dx)
+    ball_2.sety(ball_2.ycor() + ball_2.dy)
+
     # border checking, we want the ball to bounce on borders top/bottom
 
     if ball.ycor() >290:
@@ -127,6 +140,21 @@ while True:
         ball.sety(-290)
         # reverses the direction
         ball.dy *= -1
+        os.system("afplay boing.wav&")
+
+    if ball_2.ycor() >290:
+        # stops ball at border
+        ball_2.sety(290)
+        # reverses the direction
+        ball_2.dy *= -1
+        # sounds file have to be in same folder for this setup  adding & at the end prevents game from freezing while sound plays
+        os.system("afplay boing.wav&")
+
+    if ball_2.ycor() < -290:
+        # stops ball at border
+        ball_2.sety(-290)
+        # reverses the direction
+        ball_2.dy *= -1
         os.system("afplay boing.wav&")
 
     if ball.xcor() > 390:
@@ -146,6 +174,22 @@ while True:
         pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
         os.system("afplay game-over.wav&")
 
+    if ball_2.xcor() > 390:
+        ball_2.goto(0,0)
+        ball_2.dx *= -1
+        score_a += 1
+        # pen.clear erases whats written on screen
+        pen.clear()
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+        os.system("afplay game-over.wav&")
+
+    if ball_2.xcor() < -390:
+        ball_2.goto(0,0)
+        ball_2.dx *= -1
+        score_b += 1
+        pen.clear()
+        pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+        os.system("afplay game-over.wav&")
 
     # paddle and ball collision
     # if ball is 
@@ -158,10 +202,26 @@ while True:
         ball.setx(-340)
         os.system("afplay boing.wav&")
         ball.dx *= -1
+        
+    if (ball_2.xcor() > 340 and ball_2.xcor() < 350) and (ball_2.ycor() < paddle_b.ycor() + 40 and ball_2.ycor() > paddle_b.ycor() -40):
+        ball_2.setx(340)
+        os.system("afplay boing.wav&")
+        ball_2.dx *= -1
+    
+    if (ball_2.xcor() < -340 and ball_2.xcor() > -350) and (ball_2.ycor() < paddle_a.ycor() + 40 and ball_2.ycor() > paddle_a.ycor() -40):
+        ball_2.setx(-340)
+        os.system("afplay boing.wav&")
+        ball_2.dx *= -1
+
 
 #  AI player
-    if ball.xcor() > 100 and paddle_b.ycor() < ball.ycor() and abs(paddle_b.ycor() - ball.ycor()) > 17:
-        paddle_b_up()
-
-    elif ball.xcor() > 100 and paddle_b.ycor() > ball.ycor() and abs(paddle_b.ycor() - ball.ycor()) > 17:
-        paddle_b_down()
+    if ball.xcor() >ball_2.xcor():
+        if ball.xcor() > 100 and paddle_b.ycor() < ball.ycor() and abs(paddle_b.ycor() - ball.ycor()) > 17:
+            paddle_b_up()
+        elif ball.xcor() > 100 and paddle_b.ycor() > ball.ycor() and abs(paddle_b.ycor() - ball.ycor()) > 17:
+            paddle_b_down()
+    else:
+        if ball_2.xcor() > 100 and paddle_b.ycor() < ball_2.ycor() and abs(paddle_b.ycor() - ball_2.ycor()) > 17:
+            paddle_b_up()
+        elif ball_2.xcor() > 100 and paddle_b.ycor() > ball_2.ycor() and abs(paddle_b.ycor() - ball_2.ycor()) > 17:
+            paddle_b_down()
