@@ -1,5 +1,6 @@
 import turtle
 import os 
+import time
 
 # turtle is great for beginners
 wn=turtle.Screen()
@@ -87,7 +88,7 @@ pen.color("white")
 pen.penup()
 pen.hideturtle()
 pen.goto(0,260)
-pen.write("Player A: 0  Player B: 0", align="center",font=("Courier", 24, "normal"))
+pen.write("You: 0  The AI: 0", align="center",font=("Courier", 24, "normal"))
 
 # Functions
 
@@ -95,12 +96,12 @@ pen.write("Player A: 0  Player B: 0", align="center",font=("Courier", 24, "norma
 
 def paddle_a_up():
     y = paddle_a.ycor()
-    y += 20
+    y += 50
     paddle_a.sety(y)
 
 def paddle_a_down():
     y = paddle_a.ycor()
-    y -= 20
+    y -= 50
     paddle_a.sety(y)
 
 def paddle_b_up():
@@ -143,7 +144,12 @@ while True:
 
 
 
-        # border checking, we want the ball to bounce on borders top/bottom
+        # border checking, we want the ball to bounce on borders top/bottom and paddle to stop 
+
+        if paddle_a.ycor() > 250:
+            paddle_a.sety(250)
+        if paddle_a.ycor() < -250:
+            paddle_a.sety(-250)
 
         if ball.ycor() >290:
             # stops ball at border
@@ -168,7 +174,7 @@ while True:
             score_a += 1
             # pen.clear erases whats written on screen
             pen.clear()
-            pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+            pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
             os.system("afplay game-over.wav&")
 
         if ball.xcor() < -390:
@@ -176,7 +182,7 @@ while True:
             ball.dx *= -1
             score_b += 1
             pen.clear()
-            pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+            pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
             os.system("afplay game-over.wav&")
 
 
@@ -207,3 +213,39 @@ while True:
 
         elif paddle_b.ycor() > closest_ball.ycor() and abs(paddle_b.ycor() - closest_ball.ycor()) > 17:
             paddle_b_down()
+
+
+# deciding a winner 
+
+    if score_a == 10:
+        pen.clear()
+        pen.write("You Won!", align="center",font=("Courier", 24, "normal"))
+        for ball in balls:
+            # reset the balls
+            ball.goto(0,0)
+        paddle_a.goto(-350,0)
+        paddle_b.goto(350,0)
+        wn.update()
+        time.sleep(5)
+        score_a = 0
+        score_b = 0
+        pen.clear()
+        pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+
+    if score_b == 10:
+        pen.clear()
+        pen.write("The AI Wins!", align="center",font=("Courier", 24, "normal"))
+        for ball in balls:
+            # reset the balls
+            ball.goto(0,0)
+        paddle_a.goto(-350,0)
+        paddle_b.goto(350,0)
+        wn.update()
+        time.sleep(5)
+        score_a = 0
+        score_b = 0
+        pen.clear()
+        pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
+wn.mainloop()
+
+
