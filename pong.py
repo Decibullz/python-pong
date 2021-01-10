@@ -175,7 +175,7 @@ while True:
             # pen.clear erases whats written on screen
             pen.clear()
             pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
-            os.system("afplay game-over.wav&")
+            os.system("afplay ball_lost.wav&")
 
         if ball.xcor() < -390:
             ball.goto(0,0)
@@ -183,7 +183,7 @@ while True:
             score_b += 1
             pen.clear()
             pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
-            os.system("afplay game-over.wav&")
+            os.system("afplay ball_lost.wav&")
 
 
 
@@ -220,6 +220,7 @@ while True:
     if score_a == 10:
         pen.clear()
         pen.write("You Won!", align="center",font=("Courier", 24, "normal"))
+        os.system("afplay win.wav&")
         for ball in balls:
             # reset the balls
             ball.goto(0,0)
@@ -235,6 +236,7 @@ while True:
     if score_b == 10:
         pen.clear()
         pen.write("The AI Wins!", align="center",font=("Courier", 24, "normal"))
+        os.system("afplay game_over.wav&")
         for ball in balls:
             # reset the balls
             ball.goto(0,0)
