@@ -13,6 +13,7 @@ python pong.py
 ## Screenshots
 <p align="center">
 <img src="images/screenshot.png">
+<img src="images/pong.gif">
 
 </p>
 
