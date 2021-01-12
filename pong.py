@@ -2,6 +2,13 @@ import turtle
 import os 
 import time
 
+# if on windows import winsound
+if platform.system() == "Windows":
+    try:
+        import winsound
+    except:
+        print("winsound module not available")
+
 # turtle is great for beginners
 wn=turtle.Screen()
 wn.title("Pong by Cody Snell")
@@ -114,6 +121,17 @@ def paddle_b_down():
     y -= 20
     paddle_b.sety(y)
 
+def play_sound(sound_file, time = 0):
+    # Windows
+    if platform.system() == "Windows":
+        winsound.PlaySound(sound_file, winsound.SND_ASYNC)
+    # Linux
+    elif platform.system() == "Linux":
+        os.system("aplay -q {}&".format(sound_file))
+    # Mac
+    else:
+        os.system("afplay {}&".format(sound_file))
+
 #Keyboard binding
 # tells window to listen for keyboard input
 wn.listen()
@@ -157,14 +175,14 @@ while True:
             # reverses the direction
             ball.dy *= -1
             # sounds file have to be in same folder for this setup  adding & at the end prevents game from freezing while sound plays
-            os.system("afplay boing.wav&")
+            play_sound("boing.wav")
 
         if ball.ycor() < -290:
             # stops ball at border
             ball.sety(-290)
             # reverses the direction
             ball.dy *= -1
-            os.system("afplay boing.wav&")
+            play_sound("boing.wav")
 
 
 
@@ -175,7 +193,7 @@ while True:
             # pen.clear erases whats written on screen
             pen.clear()
             pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
-            os.system("afplay ball_lost.wav&")
+            play_sound("ball_lost.wav")
 
         if ball.xcor() < -390:
             ball.goto(0,0)
@@ -183,7 +201,7 @@ while True:
             score_b += 1
             pen.clear()
             pen.write("You: {}  The AI: {}".format(score_a, score_b), align="center",font=("Courier", 24, "normal"))
-            os.system("afplay ball_lost.wav&")
+            play_sound("ball_lost.wav")
 
 
 
@@ -191,12 +209,12 @@ while True:
 
         if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() -40):
             ball.setx(340)
-            os.system("afplay boing.wav&")
+            play_sound("boing.wav")
             ball.dx *= -1
         
         if (ball.xcor() < -340 and ball.xcor() > -350) and (ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() -40):
             ball.setx(-340)
-            os.system("afplay boing.wav&")
+            play_sound("boing.wav")
             ball.dx *= -1
         
 
@@ -220,7 +238,7 @@ while True:
     if score_a == 10:
         pen.clear()
         pen.write("You Won!", align="center",font=("Courier", 24, "normal"))
-        os.system("afplay win.wav&")
+        play_sound("win.wav")
         for ball in balls:
             # reset the balls
             ball.goto(0,0)
@@ -236,7 +254,7 @@ while True:
     if score_b == 10:
         pen.clear()
         pen.write("The AI Wins!", align="center",font=("Courier", 24, "normal"))
-        os.system("afplay game_over.wav&")
+        play_sound("game_over.wav")
         for ball in balls:
             # reset the balls
             ball.goto(0,0)
