@@ -1,6 +1,7 @@
 import turtle
 import os 
 import time
+import platform
 
 # if on windows import winsound
 if platform.system() == "Windows":
